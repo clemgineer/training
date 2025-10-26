@@ -1,0 +1,83 @@
+function SportTypeRow({ type }) {
+	return (
+		<tr>
+			<th colSpan="4">
+			{type}
+			</th>
+		</tr>
+	);
+}
+
+function SportRow({ sport }) {
+	const name = sport.selection ? sport.name :
+		<span style={{ color: 'blue' }}>
+			{sport.selection}
+		</span>;
+
+  return (
+        <tr>
+			<td>{name}</td>
+			<td>{sport.distance}</td>
+		</tr>
+	);
+}
+
+function SportTable({ sports }) {
+  const rows = [];
+  let lastType = null;
+  
+	sports.forEach((sport) => {
+		if (sport.type !== lastType) {
+			rows.push(
+				<SportTypeRow
+					type={sport.type}
+					key={sport.type} />
+			);
+		}
+		rows.push(
+		<SportRow
+			sport={sport}
+			key={sport.name} />
+		);
+		lastType = sport.type;
+	});
+	
+	return (
+		<table>
+			<thead>
+				<tr>
+					<th>Date</th>
+					<th>Swim</th>
+					<th>Bike</th>
+					<th>Run</th>
+				</tr>
+			</thead>
+			<tbody>{rows}</tbody>
+		</table>
+	);
+}
+
+const SPORTS =[
+ {type: "Swim", distance: "20", selection: true, name: "Jan 2025"},
+ {type: "Swim", distance: "25", selection: true, name: "Feb 2025"},
+ {type: "Swim", distance: "30", selection: true, name: "Mar 2025"},
+ {type: "Swim", distance: "35", selection: true, name: "Apr 2025"},
+ {type: "Swim", distance: "30", selection: true, name: "May 2025"},
+ {type: "Swim", distance: "40", selection: true, name: "June 2025"},
+ {type: "Bike", distance: "20", selection: true, name: "Jan 2025"},
+ {type: "Bike", distance: "25", selection: true, name: "Feb 2025"},
+ {type: "Bike", distance: "30", selection: true, name: "Mar 2025"},
+ {type: "Bike", distance: "35", selection: true, name: "Apr 2025"},
+ {type: "Bike", distance: "30", selection: true, name: "May 2025"},
+ {type: "Bike", distance: "40", selection: true, name: "June 2025"},
+ {type: "Run", distance: "20", selection: true, name: "Jan 2025"},
+ {type: "Run", distance: "25", selection: true, name: "Feb 2025"},
+ {type: "Run", distance: "30", selection: true, name: "Mar 2025"},
+ {type: "Run", distance: "35", selection: true, name: "Apr 2025"},
+ {type: "Run", distance: "30", selection: true, name: "May 2025"},
+ {type: "Run", distance: "40", selection: true, name: "June 2025"}
+];
+
+export default function App() {
+	return <SportTable sports={SPORTS} />;
+}
